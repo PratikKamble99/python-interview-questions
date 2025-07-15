@@ -41,8 +41,6 @@ sequence[start:stop:step]
 ## 4. What is docstring in Python?
 A docstring (documentation string) is a special string used to document Python modules, classes, functions, or methods.
 
-A docstring (documentation string) is a special string used to document Python modules, classes, functions, or methods.
-
 ## 5. What is break, continue and pass in Python?
 1. Break:-	The break statement terminates the loop immediately.
 
