@@ -149,7 +149,8 @@ print_details(name="pratik", age=20) # this converts into dictionary
 ``` 
 
 ## 9. What is an Iterator?
-An iterator in Python is an object that allows you to `traverse through a sequence of elements, one item at a time`.
+An iterator in Python is an object that allows you to `traverse through a sequence of elements, one item at a time`.                              
+An iterator is any object that implements the __iter__() and __next__() methods.
 ```
  It implements two special methods:
 __iter__()    # Returns the iterator object itself
@@ -208,7 +209,7 @@ print(arr)  #Output: => [1, 2, 3, 4]
 
 ## 11. What is generator?
 
-Generators are functions that return an iterable collection of items, one at a time, in a set manner.                
+A generator is a simpler and more Pythonic `way to build an iterator using the yield keyword in a function`. Python automatically handles the state between iterations.   
 Generators, in general, are used to create iterators with a different approach. They employ the use of yield keyword rather than return to return a generator object.
 ```python
 ## generate fibonacci numbers upto n
