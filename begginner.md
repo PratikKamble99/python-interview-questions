@@ -241,8 +241,7 @@ There’s no need to specify `int` or `str`. This makes Python **flexible** but 
 
 ---
 
-###
-  3. Strongly Typed
+### 3. Strongly Typed
 
 Although Python is dynamically typed, it is **strongly typed**, meaning it **does not allow implicit type conversion (type coercion)** that might lead to unexpected results.
 
