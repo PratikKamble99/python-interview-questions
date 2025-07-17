@@ -88,8 +88,8 @@ class Dog:
 # Private, Protected, Public
 class Person:
     def __init__(self, name, age, salary):
-        self.name = name # public variable - can acces from anywhere and outside module
-        self._age = age # protected variable - can acces from itself and derived class only and not outside module
+        self.name = name # public variable - can acces from anywhere
+        self._age = age # protected variable - can acces from itself and derived class only
         self.__salary = salary # private variable - can acces from in same class only
 
 class Employee(Person):
@@ -98,7 +98,7 @@ class Employee(Person):
 
 pratik = Person('Pratik', 25, 700000)
 print(pratik.name) 
-print(pratik._age) # will acces from same class not outside module
+print(pratik._age) # will acces from same class 
 # print(pratik.__salary) # get error
 
 rutik = Employee('Rutik', 26, 100000 )
