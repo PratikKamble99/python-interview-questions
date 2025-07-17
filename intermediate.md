@@ -379,3 +379,15 @@ class Child(Parent):
 obj = Child("Interviewbit", 6)
 obj.display()
 ```
+
+## Garbage Collection
+Garbage Collection (GC) in Python is the `automatic process of memory management`, where unused or unreachable objects are removed from memory to free up space.   
+When you do this:
+```python
+x = [1, 2, 3]
+x = None  # old list is no longer referenced
+```
+The list [1, 2, 3] is now orphaned — nothing refers to it.                                          
+Garbage Collector will detect this and delete it from memory.
+
+
