@@ -256,17 +256,13 @@ In **weakly typed** languages like JavaScript, this would output `"12"` due to i
 
 ---
 
+## Python code execution flow including compilation and .pyc file
+- Python is an interpreted language, but internally it first compiles .py files to bytecode (.pyc) before execution. 
+- This bytecode is then run by the Python Virtual Machine (PVM). The .pyc files are stored in the __pycache__ directory for faster loading in future executions.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+**Steps:**
+1. You write a .py file (source code).
+2. Python compiles it into bytecode (a low-level set of instructions).
+3. The bytecode is stored in a .pyc file (cached in __pycache__/).
+4. The Python Virtual Machine (PVM) interprets and runs this bytecode.
+5. If the .pyc file exists and is up-to-date, Python skips recompiling.

@@ -333,52 +333,52 @@ del res  # "Resource closed" will be printed
 ## 15. access parent members in the child class
 1. By using Parent class name: You can use the name of the parent class to access the attributes as shown in the example below:
 
-```python 
-class Parent(object):  
-   # Constructor
-   def __init__(self, name):
-       self.name = name    
- 
-class Child(Parent): 
-   # Constructor
-   def __init__(self, name, age):
-       Parent.name = name
-       self.age = age
- 
-   def display(self):
-       print(Parent.name, self.age)
- 
-# Driver Code
-obj = Child("Interviewbit", 6)
-obj.display()
-```
+    ```python 
+    class Parent(object):  
+    # Constructor
+    def __init__(self, name):
+        self.name = name    
+    
+    class Child(Parent): 
+    # Constructor
+    def __init__(self, name, age):
+        Parent.name = name
+        self.age = age
+    
+    def display(self):
+        print(Parent.name, self.age)
+    
+    # Driver Code
+    obj = Child("Interviewbit", 6)
+    obj.display()
+    ```
 
 2. By using super(): The parent class members can be accessed in child class using the super keyword.
 
-```python
-class Parent(object):
-   # Constructor
-   def __init__(self, name):
-       self.name = name    
- 
-class Child(Parent):
-   # Constructor
-   def __init__(self, name, age):         
-       ''' 
-       In Python 3.x, we can also use super().__init__(name)
-       ''' 
-       super(Child, self).__init__(name)
-       self.age = age
- 
-   def display(self):
-      # Note that Parent.name cant be used 
-      # here since super() is used in the constructor
-      print(self.name, self.age)
-  
-# Driver Code
-obj = Child("Interviewbit", 6)
-obj.display()
-```
+    ```python
+    class Parent(object):
+    # Constructor
+    def __init__(self, name):
+        self.name = name    
+    
+    class Child(Parent):
+    # Constructor
+    def __init__(self, name, age):         
+        ''' 
+        In Python 3.x, we can also use super().__init__(name)
+        ''' 
+        super(Child, self).__init__(name)
+        self.age = age
+    
+    def display(self):
+        # Note that Parent.name cant be used 
+        # here since super() is used in the constructor
+        print(self.name, self.age)
+    
+    # Driver Code
+    obj = Child("Interviewbit", 6)
+    obj.display()
+    ```
 
 ## Garbage Collection
 Garbage Collection (GC) in Python is the `automatic process of memory management`, where unused or unreachable objects are removed from memory to free up space.   
@@ -395,3 +395,121 @@ Garbage Collector will detect this and delete it from memory.
 - It simplifies memory management and object access by avoiding race conditions.
 
 
+
+## Magic methods - Dunder methods
+- Dunder methods are special methods in Python that start and end with double underscores (e.g.,`__init__`, `__str__`, `__add__`).
+- They enable user-defined classes to implement and customize built-in behaviors such as initialization, string representation, arithmetic operations, comparisons, and more.
+- Magic methods allow `Python classes to behave like built-in types by enabling operator overloading` and standard method behavior.
+
+    ```python
+    class Counter:
+        def __init__(self, value=0):
+            self.value = value
+
+        def increment(self, step=1):
+            self.value += step
+
+        def __str__(self):
+            return f"Counter: {self.value}"
+
+        def __eq__(self, other):
+            if not isinstance(other, Counter):
+                return NotImplemented
+            return self.value == other.value
+
+        def __add__(self, other):
+            return self.value + other.value
+
+        def __sub__(self, other):
+            return self.value - other.value
+
+    c1 = Counter(10)
+    c2 = Counter(5)
+    c3 = Counter(10)
+
+    c1.increment()
+    c3.increment()
+
+    print(c1 + c2)  # Output: 15 = it internally calls __add__ method
+    print(c3 - c2)  # Output: 5 = it internally calls __sub__ method
+    print(c1 == c3)  # True = it internally calls __eq__ method
+    ```
+    
+    ## Context Manager
+    A context manager in Python is a tool that manages resources, such as files, network connections, or database connections, ensuring proper cleanup and resource management.
+    - Avoid resource leaks (e.g. open files not being closed)
+    - Makes code cleaner and more readable
+    - Automatically handles exceptions and cleanup
+
+    - It uses `with` :
+        ```python
+        with open('file.txt', 'r') as file:
+            content = file.read()
+        ```
+    - Opens the file
+    - Assigns it to file
+    - Closes it even if an error occurs
+    
+
+## Async operations in Python
+- Python uses an `event loop to manage async tasks`. Coroutines are defined using async def and paused with await
+- For concurrency, we can schedule them using asyncio.create_task() which allows multiple coroutines to run concurrently without blocking each other. This model is ideal for I/O-bound tasks.
+
+**event loop**
+- The event loop is a `central executor that drives the execution of coroutines`. It ensures non-blocking execution and handles scheduling of async tasks.
+- The event loop is the core of asynchronous programming in Python using asyncio.
+- It schedules, runs, and manages asynchronous tasks (coroutines, futures, callbacks).
+
+
+
+**Normal Coroutine**
+```python
+async def my_task():
+    await asyncio.sleep(1)
+    print("Done")
+
+# Running
+await my_task()  # Just runs and waits here
+```
+
+**Using asyncio.create_task()**
+```python
+async def my_task(id, delay):
+    print(f"Task {id} started")
+    await asyncio.sleep(delay)
+    return id
+    print(f"Task {id} done")
+
+async def main():
+    task = asyncio.create_task(my_task(1, 2))  # Scheduled in background
+    task = asyncio.create_task(my_task(2, 1))  # Scheduled in background
+    task = asyncio.create_task(my_task(3, 3))  # Scheduled in background
+    print("Tasks scheduled")
+    res_1 = await task  # Waits here later
+    res_2 = await task  # Waits here later
+    res_3 = await task  # Waits here later
+    print("Tasks completed")
+    print(res_1, res_2, res_3) # will get result after all tasks are completed
+
+```
+
+### asyncio.gather()
+asyncio.gather() is used to `run multiple coroutines concurrently and wait for all of them to finish`, returning their results in order. It's ideal for managing multiple I/O-bound tasks at once.
+```python
+import asyncio
+
+async def say(message, delay):
+    await asyncio.sleep(delay)
+    print(message)
+    return message.upper()
+
+async def main():
+    result = await asyncio.gather(
+        say("hello", 2),
+        say("world", 1)
+    )
+    print("Results:", result)
+
+asyncio.run(main())
+```
+    
