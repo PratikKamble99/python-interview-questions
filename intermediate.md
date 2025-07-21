@@ -390,4 +390,8 @@ x = None  # old list is no longer referenced
 The list [1, 2, 3] is now orphaned — nothing refers to it.                                          
 Garbage Collector will detect this and delete it from memory.
 
+## Global Interpreter Lock (GIL) in Python
+- The Global Interpreter Lock is a mutex in CPython that ensures only one thread executes Python bytecode at a time.
+- It simplifies memory management and object access by avoiding race conditions.
+
 
